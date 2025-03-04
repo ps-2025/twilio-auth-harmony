@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import SimpleButton from '@/components/ui/SimpleButton';
 import { useAuth } from '@/contexts/AuthContext';
 
 const LoginButton = () => {
   const { signInWithGoogle, loading } = useAuth();
 
   return (
-    <Button 
+    <SimpleButton 
       onClick={signInWithGoogle} 
       disabled={loading} 
       className="transition-all duration-300 ease-out hover:shadow-md"
@@ -61,7 +61,7 @@ const LoginButton = () => {
           Sign in with Google
         </div>
       )}
-    </Button>
+    </SimpleButton>
   );
 };
 

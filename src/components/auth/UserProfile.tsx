@@ -1,15 +1,14 @@
 
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
+import SimpleButton from '@/components/ui/SimpleButton';
+import SimpleAvatar from '@/components/ui/SimpleAvatar';
 
 interface UserProfileProps {
   className?: string;
 }
 
-const UserProfile = ({ className }: UserProfileProps) => {
+const UserProfile = ({ className = '' }: UserProfileProps) => {
   const { user, signOut, loading } = useAuth();
 
   if (!user) return null;
@@ -21,16 +20,18 @@ const UserProfile = ({ className }: UserProfileProps) => {
     .toUpperCase();
 
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <Avatar className="h-10 w-10 border border-border transition-all duration-300 ease-out hover:shadow-sm">
-        <AvatarImage src={user.photoURL} alt={user.displayName} />
-        <AvatarFallback>{initials}</AvatarFallback>
-      </Avatar>
+    <div className={`flex items-center gap-3 ${className}`}>
+      <SimpleAvatar 
+        src={user.photoURL} 
+        alt={user.displayName} 
+        fallback={initials} 
+        className="border border-gray-200 transition-all duration-300 ease-out hover:shadow-sm"
+      />
       <div className="flex flex-col">
         <p className="text-sm font-medium">{user.displayName}</p>
-        <p className="text-xs text-muted-foreground">{user.email}</p>
+        <p className="text-xs text-gray-500">{user.email}</p>
       </div>
-      <Button 
+      <SimpleButton 
         variant="ghost" 
         size="sm" 
         onClick={signOut} 
@@ -38,7 +39,7 @@ const UserProfile = ({ className }: UserProfileProps) => {
         className="ml-2"
       >
         {loading ? 'Signing out...' : 'Sign out'}
-      </Button>
+      </SimpleButton>
     </div>
   );
 };
